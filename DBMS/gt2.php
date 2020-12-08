@@ -1,6 +1,6 @@
 <?php  
 include('header.php');
-title("Analysis");
+title("Statistics");
 ?>
     <div class="main">
         <div class="main-inner">
