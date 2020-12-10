@@ -5,7 +5,8 @@ include('security.php');include('fun.php');
 securityforpage();
 $prn=$_POST['prn'];
 $book=$_POST['book'];
-if(isset($_POST['renew'])){
+if(isset($_POST['renew']))
+{
 	if(update("student_book","renew",'CURRENT_TIMESTAMP',"WHERE prn='$prn' AND book_name='$book' "))
 	{
 		poutput("Book <b>Renewed</b> Successfully","gt.php?prn=$prn&submit=");
@@ -59,7 +60,14 @@ elseif (isset($_POST['update']))
 	}
 }
 //for updating profile end
+elseif(isset($_GET['prn']))
+{
+	$prn=$_GET['prn'];
+	if(update("student","status","'1'","WHERE prn='$prn'"))
+		{poutput("Registered Successfully","gt.php?prn=$prn&submit=");}else{noutput("Unsuccessful To Registered","gt.php?prn=$prn&submit=");}
+}
 else{
 	$_POST['return']=$_POST['renew']="";
+	header('Location:gt.php?prn=&submit=');
 }
 ?>

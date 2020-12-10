@@ -49,4 +49,21 @@ function noutput($msg,$location)
 	$_SESSION['Status']=$msg;
 	header('Location:'.$location.'');
 }
+function diff_date($date1,$date2,$category)
+{
+	$diff = abs(strtotime($date2) - strtotime($date1));
+	$years = floor($diff / (365*60*60*24));
+	$months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
+	$days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
+	if ($category=="Y"){return $years;}
+	elseif($category=="M"){return $months;}
+	elseif($category=="D"){return $days;}
+	else{return $years."y-".$months."m-".$days."d";}
+}
+function show(){
+	echo "<div class='alert alert-info'>
+	<button type='button' class='close' data-dismiss='alert'>&times;</button>
+	<center><strong>Warning!</strong> No PRN Found</center>
+	</div>";
+}
 ?>

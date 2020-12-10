@@ -27,16 +27,17 @@ function destroy($eml)
 }
 
 function securityforpage(){	
-	connection($_SESSION['username']);
-	if(!$_SESSION['username']?destroy():!$_SESSION['sn']?destroy():!$_SESSION['sid']?destroy():False)
+	$usr=isset($_SESSION['username'])?$_SESSION['username']:"";
+	connection($usr);
+	if(!$usr?destroy($usr):!$_SESSION['sn']?destroy($usr):!$_SESSION['sid']?destroy($usr):False)
 	{
-		destroy($_SESSION['username']);
+		destroy($usr);
 	}
 }
 
 function securityforloginpage(){
 	connection($_POST['username']);
-	if(!$_POST['username']?destroy():!$_POST['password']?destroy():False)
+	if(!$_POST['username']?destroy($_POST['username']):!$_POST['password']?destroy($_POST['username']):False)
 	{
 		$First_Name=$Last_Name=$State=$Cat=$Email=$Password=$Password2=$_POST['password']=$_POST['username']="";
 		destroy($_POST['username']);
