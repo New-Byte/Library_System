@@ -5,6 +5,7 @@ include('security.php');include('fun.php');
 securityforpage();
 $prn=$_POST['prn'];
 $book=$_POST['book'];
+$bookid=$_POST['bookid'];
 if(isset($_POST['renew']))
 {
 	if(update("student_book","renew",'CURRENT_TIMESTAMP',"WHERE prn='$prn' AND book_name='$book' "))
@@ -32,7 +33,7 @@ elseif(isset($_POST['return']))
 elseif(isset($_POST['add']))
 {
 	echo "add"; 
-	$add="INSERT INTO student_book(prn,book_name,took) VALUES ('$prn','$book',CURRENT_TIMESTAMP)";    
+	$add="INSERT INTO student_book(prn,book_name,book_id,took) VALUES ('$prn','$book','$bookid',CURRENT_TIMESTAMP)";    
 	if ($connection->query($add)) 
 	{
 		poutput("Book Added Successfully","gt.php?prn=$prn&submit=");

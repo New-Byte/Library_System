@@ -48,7 +48,7 @@ securityforpage();?>
     <div class="container">
       <ul class="mainnav">        
         <li class=" <?php if($selpage=='Dashboard'){ echo 'active';} ?>active"><a href="index.php"><i class="icon-dashboard"></i><span>Dashboard</span> </a> </li>
-        <li class="<?php if($selpage=='IMPORT-EXPORT'){ echo 'active';} ?>active"><a href="gt.php"><i class="icon-list-alt"></i><span>GIVE-TAKE</span> </a> </li>
+        <li class="<?php if($selpage=='Students'){ echo 'active';} ?>active"><a href="gt.php"><i class="icon-list-alt"></i><span>Students</span> </a> </li>
         <li class="<?php if($selpage=='Books'){ echo 'active';} ?>active"><a href="gt1.php"><i class="icon-book"></i><span>Books</span> </a> </li>
         <li class="<?php if($selpage=='Statistics'){ echo 'active';} ?>active"><a href="gt2.php"><i class="icon-bar-chart"></i><span>Statistics</span> </a> </li>
         <?php ?>

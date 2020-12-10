@@ -1,6 +1,6 @@
 <?php
 include('header.php');
-title("IMPORT-EXPORT");
+title("Students");
 ?>
 <div class="span12">    
 	<div class="widget ">
@@ -75,6 +75,7 @@ title("IMPORT-EXPORT");
 								</tr>";
 								$status=$std['status'];
 								$prn=$std['prn'];
+								
 							}
 							?>
 						</tbody>
@@ -100,13 +101,16 @@ title("IMPORT-EXPORT");
 							<div class="modal-body">
 								<form  action="op.php" method="post" class="form-horizontal" >
 									<div class="control-group">			
-										<label class="control-label" for="radiobtns">Book Name</label>
+										<label class="control-label" for="radiobtns">Book Details</label>
 										<div class="controls">
 											<div class="input-append">
 												<?php if($row!=0){ ?>								
 													<input type="hidden" name="prn" value="<?php echo($prn) ?>">
 												<?php } ?>
-												<input class="span2 m-wrap" id="appendedInputButton" type="text" name="book" autocomplete="off">
+												<input class="span2 m-wrap" id="appendedInputButton" type="text" name="book" autocomplete="off" placeholder="Book Name">
+												<br><br>
+												<input class="span2 m-wrap" id="appendedInputButton" type="text" name="bookid" autocomplete="off" placeholder="Book ID">
+												<br><br>
 												<button class="btn" type="submit" name="add">Add</button>
 											</div>
 										</div>	<!-- /controls -->			
@@ -148,11 +152,17 @@ title("IMPORT-EXPORT");
 								}
 								elseif($stb['returned']!='0000-00-00 00:00:00')
 								{}
-							else{
+							elseif($stb['returned']=='0000-00-00 00:00:00'&&$stb['renew']=='0000-00-00 00:00:00'){
 								echo 15-diff_date($stb['took'],date("Y-m-d H:i:s"),"D");
+							}else{}
+							echo"</cen
+							ter></td>";
+
+							if ((abs(diff_date($stb['took'],date("Y-m-d H:i:s"),"D"))>15) && $stb['renew']=='0000-00-00 00:00:00'&&$stb['returned']=='0000-00-00 00:00:00')
+							{
+								echo"<td style='color:white;background-color:#FF5722;'> <center>".abs(((15-diff_date($stb['took'],date("Y-m-d H:i:s"),"D"))*5))."</center></td>";
 							}
-							echo"</center></td>";
-							if ((diff_date($stb['took'],date("Y-m-d H:i:s"),"D")>15) && $stb['renew']=='0000-00-00 00:00:00'&&$stb['returned']=='0000-00-00 00:00:00')
+							elseif ((abs(diff_date($stb['renew'],date("Y-m-d H:i:s"),"D"))>15) && $stb['renew']!='0000-00-00 00:00:00'&&$stb['returned']=='0000-00-00 00:00:00')
 							{
 								echo"<td style='color:white;background-color:#FF5722;'> <center>".abs(((15-diff_date($stb['took'],date("Y-m-d H:i:s"),"D"))*5))."</center></td>";
 							}
