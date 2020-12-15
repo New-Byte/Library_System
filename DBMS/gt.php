@@ -1,6 +1,9 @@
 <?php
 include('header.php');
-title("Students");
+title("IMPORT-EXPORT");
+if(isset($_GET['prn'])){
+	$prn=$_GET['prn'];
+}else{$prn="";}
 ?>
 <div class="span12">    
 	<div class="widget ">
@@ -17,7 +20,8 @@ title("Students");
 								<label class="control-label" for="radiobtns">Student PRN  </label>
 								<div class="controls">
 									<div class="input-append">
-										<input class="span2 m-wrap" id="appendedInputButton" type="text" name="prn" autocomplete="off">
+										<input type="hidden" name="page" value="IMPORT-EXPORT">
+										<input class="span2 m-wrap" value="<?php echo $prn;?>" id="appendedInputButton" type="text" name="prn" autocomplete="off">
 										<button class="btn" type="submit" name="submit">Search!</button>
 									</div>
 								</div>	<!-- /controls -->			
@@ -48,6 +52,8 @@ title("Students");
 							<th><center> Branch</center></th>
 							<th><center> Status</center></th>
 							<th><center> Mobile</center></th>
+							<th><center>Gender</center></th>
+							<th><center>Address</center></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -66,16 +72,17 @@ title("Students");
 							if($std['status']!="1"){echo "Not Registered";}else{echo "Registered";}
 							echo "</b>";
 							if($std['status']!="1"){
-								echo "<a href='reg.php?prn=".$std['prn']."' title='Register' name='register' class='btn btn-mini btn-success'><i class='btn-icon-only icon-ok'></i>";}
+								echo "<a href='op.php?prn=".$std['prn']."' title='Register' name='register' class='btn btn-mini btn-success'><i class='btn-icon-only icon-ok'></i>";}
 
 								echo "
 								</a>
 								</center></td>
 								<td><center> ".$std['mobile']."</center></td>
+								<td><center> ".$std['Gender']."</center></td>
+								<td><center> ".$std['Address']."</center></td>
 								</tr>";
 								$status=$std['status'];
 								$prn=$std['prn'];
-								
 							}
 							?>
 						</tbody>
@@ -83,7 +90,7 @@ title("Students");
 				</div>
 				<?php 
 				$row=mysqli_num_rows($result);
-				if($row==0){show();}
+				if($row==0){show('Data OF PRN '.$prn.' ');}
 				?><br />
 				<!-- /widget-content --> 
 				<div class="widget-header"> <i class="icon-th-list"></i>
@@ -101,16 +108,13 @@ title("Students");
 							<div class="modal-body">
 								<form  action="op.php" method="post" class="form-horizontal" >
 									<div class="control-group">			
-										<label class="control-label" for="radiobtns">Book Details</label>
+										<label class="control-label" for="radiobtns">Book Name</label>
 										<div class="controls">
 											<div class="input-append">
 												<?php if($row!=0){ ?>								
 													<input type="hidden" name="prn" value="<?php echo($prn) ?>">
 												<?php } ?>
-												<input class="span2 m-wrap" id="appendedInputButton" type="text" name="book" autocomplete="off" placeholder="Book Name">
-												<br><br>
-												<input class="span2 m-wrap" id="appendedInputButton" type="text" name="bookid" autocomplete="off" placeholder="Book ID">
-												<br><br>
+												<input class="span2 m-wrap" id="appendedInputButton" type="text" name="book" autocomplete="off">
 												<button class="btn" type="submit" name="add">Add</button>
 											</div>
 										</div>	<!-- /controls -->			
@@ -205,7 +209,7 @@ title("Students");
 		</div>
 		<?php 
 		$row=mysqli_num_rows($result);
-		if($row==0){show();}
+		if($row==0){show('Book Data Of PRN '.$prn.' ');}
 		?>
 	</div>
 <?php }  ?>

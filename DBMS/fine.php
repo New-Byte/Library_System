@@ -1,6 +1,5 @@
 <?php
 include('header.php');
-include('dbconfig.php');
 title("Fine");
 ?>
 <div class="span12">
@@ -40,8 +39,6 @@ title("Fine");
 							<td>".$stb['mobile']."</td>
 							<td>".$stb['Email']."</td>
 							</tr>";
-							$fine = abs(((15-diff_date($stb['renew'],date('Y-m-d H:i:s'),'D'))*5));
-							$sql = "INSERT INTO student (fine) VALUES ('$fine')";
 						}
 						elseif($stb['renew']=='0000-00-00 00:00:00' && (diff_date($stb['took'],date("Y-m-d H:i:s"),"D")>15)) 
 						{
@@ -55,13 +52,8 @@ title("Fine");
 							<td>".$stb['mobile']."</td>
 							<td>".$stb['Email']."</td>
 							</tr>";
-							$fine = abs(((15-diff_date($stb['took'],date("Y-m-d H:i:s"),"D"))*5));
-							$sql = "INSERT INTO student (fine) VALUES ('$fine')";
 						}
-						else{
-							$fine = 0;
-							$sql = "INSERT INTO student (fine) VALUES ('$fine')";
-						}
+						else{}
 
 					} 
 				?>
