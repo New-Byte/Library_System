@@ -11,7 +11,7 @@ title("Student");
     <div class="widget-content">
       <div class="shortcuts"> 
         <a href="#myModal" role="button" data-toggle="modal" class="shortcut"><i class="shortcut-icon icon-plus-sign"></i><span class="shortcut-label">Add Student</span> </a>
-        <a href="javascript:;" class="shortcut"><i class="shortcut-icon icon-upload-alt"></i> <span class="shortcut-label">Import Student Data</span> </a>
+        <a href="#myModal3" role="button" data-toggle="modal" class="shortcut"><i class="shortcut-icon icon-upload-alt"></i><span class="shortcut-label">Upload Student Data</span> </a>
         <a href="#myModal2" role="button" data-toggle="modal" class="shortcut"><i class="shortcut-icon icon-remove-sign"></i> <span class="shortcut-label">Remove Student</span> </a>
         <a href="gt.php" class="shortcut"> <i class="shortcut-icon icon-search"></i><span class="shortcut-label">Search Students</span> </a>
         <a href="#myModal1" role="button" data-toggle="modal" class="shortcut"><i class="shortcut-icon icon-filter"></i><span class="shortcut-label">Filter Students</span> </a>
@@ -76,7 +76,7 @@ title("Student");
           <div class="controls">
             <input type="date" class="span3" id="date" value="" name="date">
           </div> <!-- /controls --> 
-          <input class="btn" type="submit" name="add1" value="Add">      
+          <Button class="btn" type="submit" name="op" value="AddST">ADD</Button>     
         </div>
       </form>
     </div>
@@ -93,7 +93,50 @@ title("Student");
           <div class="controls">
             <div class="input-append">           
               <input class="span2 m-wrap" id="appendedInputButton" type="text" name="prn124" autocomplete="off">
-              <input class="btn" type="submit" name="remove" value="Remove">
+              <br><br>
+              <input class="btn" type="submit" name="op" value="Remove">
+              <br><br>
+              <input class="btn" type="submit" name="op" value="Remove all pass-outs">
+            </div>
+          </div>  <!-- /controls -->      
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <div id="myModal3" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="myModalLabel">Upload Student Data</h3>
+    </div>
+    <div class="modal-body">
+      <div class="row" align="center">
+      <!-- Import link -->
+    <div class="col-md-12 head">
+        <div class="float-right">
+            <a href="javascript:void(0);" class="btn btn-success" onclick="formToggle('importFrm');"><i class="plus"></i> Import</a>
+        </div>
+    </div>
+      <!-- CSV file upload form -->
+    <div class="col-md-12" id="importFrm" style="display: none;">
+        <form action="importdata.php" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" />
+            <input type="submit" class="btn btn-primary" name="importSubmit" value="IMPORT">
+        </form>
+    </div>
+  </div>
+  <!-- Show/hide CSV upload form -->
+<script>
+function formToggle(ID){
+    var element = document.getElementById(ID);
+    if(element.style.display === "none"){
+        element.style.display = "block";
+    }else{
+        element.style.display = "none";
+    }
+}
+</script>
             </div>
           </div>  <!-- /controls -->      
         </div>
@@ -107,7 +150,7 @@ title("Student");
       <h3 id="myModalLabel">Filter Student</h3>
     </div>
     <div class="modal-body">
-      <form  name="search" action="filter.php" method="POST" class="form-horizontal" >
+      <form  action="filter.php" method="POST" class="form-horizontal" >
         <div class="control-group">
         <table width="600" border="2" class="srch">     
           <div class="controls">
@@ -122,12 +165,12 @@ title("Student");
               <tbody>
                 <tr>
                   <td>
-                    <input type="checkbox" value="Computer" name="branch10[]">Computer Engineering<br />
-                    <input type="checkbox" value="Mechanical" name="branch10[]">Mechanical Engineering<br />
-                    <input type="checkbox" value="Electrical" name="branch10[]">Electrical Engineering<br />
-                    <input type="checkbox" value="Civil" name="branch[]">Civil Engineering<br />
-                    <input type="checkbox" value="Electronics" name="branch10[]">Electronics Engineering<br />
-                    <input type="checkbox" value="Instrumentation" name="branch10[]">Instrumentation Engineering<br />
+                    <input type="checkbox" value="Computer Engineering" name="branch10[]">Computer Engineering<br />
+                    <input type="checkbox" value="Mechanical Engineering" name="branch10[]">Mechanical Engineering<br />
+                    <input type="checkbox" value="Electrical Engineering" name="branch10[]">Electrical Engineering<br />
+                    <input type="checkbox" value="Civil Engineering" name="branch10[]">Civil Engineering<br />
+                    <input type="checkbox" value="Electronics & Telecommunication" name="branch10[]">Electronics & Telecommunicatio<br />
+                    <input type="checkbox" value="Instrumentation Engineering" name="branch10[]">Instrumentation Engineering<br />
                   </td>
                 </tr>
               </tbody>

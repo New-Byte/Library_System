@@ -1,36 +1,29 @@
+<?php 
+  include('header.php'); 
+  include('dbconfig.php');
+?>
 <?php  
-
-if(isset($_REQUEST['search']))
-{
-    $branch = $_REQUEST['branch10'];
-    foreach ($_REQUEST['branch10'] as $branch) {
-        $statearray[] = mysql_real_escape_string($branch);
+    $branch = $_POST['branch10'];
+    foreach ($_POST['branch10'] as $branch) {
+        $statearray[] = $connection->real_escape_string($branch);
     }
     $states = implode ("','", $statearray);
     $sql = "SELECT * FROM student WHERE branch IN ('$states')";
 
     //Now we search for our search term, in the field the user specified
-    $result = mysql_query($sql) or die(mysql_error());
+    $result = $connection->query($sql) or die(mysql_error());
 
     //This counts the number or results - and if there wasn't any it gives them a     little     message explaining that
-    if (mysql_num_rows($result) == 0)
+    if (!$result)
     {
         echo "Sorry, but we can not find an entry to match your query...<br><br>";
     }
-    else
-    { ?>
+    if($result){
+?>
         <div class="widget">
     <div class="widget-header"> <i class='icon-list'></i> 
-      <h3><?php
-      $result=select("*","student","WHERE 1");
-      $row=mysqli_num_rows($result);
-      if($row!=0){ ?>
-        <form  action="filter.php" method="GET" >
+      <h3>
           Student List 
-          &emsp;<input class="span4 m-wrap" type="number" name="cnt" autocomplete="off" placeholder="Enter records number to show">
-          <input type="hidden" name="page" value="Dashboard">
-        </form>
-       <?php } ?>
     </h3>
   </div>
   <!-- /widget-header -->
@@ -55,7 +48,7 @@ if(isset($_REQUEST['search']))
             <?php
         //And we display the results
         
-        while($std=mysqli_fetch_assoc($result))
+        while($std=$result->fetch_assoc())
           {
             echo "<tr>
             <td><center> ".$std['prn']."</center></td>
@@ -77,8 +70,6 @@ if(isset($_REQUEST['search']))
               </tr>";
             }
             ?>
-    <?php } ?> 
-    
      </tbody>
         </table>
       </div>
