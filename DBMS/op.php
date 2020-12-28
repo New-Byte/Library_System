@@ -258,6 +258,42 @@ if(isset($_POST['prn'])){
 					noutput("Unsuccessful To Add Book","books.php?page=Books");
 				}
 				break;
+				//To remove book start
+				case 'rmBK':
+				$bid = $_POST['id1'];
+				//get the name and status of book with given id
+				$add="SELECT * FROM cp_book WHERE book_id='$bid'";
+				$result = $connection->query($add);
+				$std=mysqli_fetch_assoc($result);
+				$std1 = $std['book_name'];
+				$stat = $std['status'];
+				//delete the book
+				$add="DELETE FROM cp_books WHERE book_id='$bid'";    
+				if ($connection->query($add)) 
+				{	
+					//Update total books and books left in books table
+					$add = "SELECT * FROM books WHERE book_name='$std1'";
+					$result = $connection->query($add);
+					$std=mysqli_fetch_assoc($result);
+					//check if book was available i library
+					if (!$stat) {
+						$l = $std['cp_left'];
+					}
+					else{$l = $std['cp_left'] - 1;}
+					$t = $std['toatal_cp'] - 1;
+					$add="UPDATE books SET cp_left='$l',toatal_cp='$t' WHERE book_name='$std1'";			
+					if ($connection->query($add)){			
+					poutput("Book removed successfully","books.php?page=Books&prn=$prn&submit=");}
+					else{
+						poutput("Book removed successfully but unable to update data","books.php?page=Books&prn=$prn&submit=");
+					}
+					
+				}
+				else
+				{
+					noutput("Unsuccessful To Remove Data","books.php?page=Books&prn=$prn&submit=");
+				}
+				break;
 				default:
 				$_POST['op']="";
 				header('Location:index.php?page=Dashboard&prn=&submit=');
