@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.3
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3345
--- Generation Time: Dec 28, 2020 at 10:44 AM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.2.34
+-- Host: 127.0.0.1
+-- Generation Time: Dec 29, 2020 at 11:54 AM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -62,7 +63,6 @@ CREATE TABLE `cp_books` (
 --
 
 INSERT INTO `cp_books` (`book_id`, `book_name`, `auther`, `status`) VALUES
-(112233, 'hello world', 'fransis parker', 0),
 (112232, 'hello world', 'fransis parker', 1),
 (112230, 'hello world', 'fransis parker', 1),
 (112212, 'hello world', 'fransis parker', 1),
@@ -78,29 +78,57 @@ CREATE TABLE `magazine` (
   `id` int(11) NOT NULL,
   `name` varchar(11) NOT NULL,
   `author` varchar(11) NOT NULL,
-  `copyid` varchar(11) NOT NULL,
   `dateadd` datetime NOT NULL DEFAULT current_timestamp(),
-  `addedby` varchar(1000) NOT NULL
+  `addedby` varchar(1000) NOT NULL,
+  `isbn` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `magazine`
 --
 
-INSERT INTO `magazine` (`id`, `name`, `author`, `copyid`, `dateadd`, `addedby`) VALUES
-(19, 'lucy', 'saurabh ', '19-1', '2020-12-27 00:00:00', ''),
-(41, 'lucy', 'Arnold', '19-2', '2020-12-27 10:55:20', ''),
-(47, 'lucy', 'Arnold', '19-3', '2020-12-27 10:57:19', ''),
-(51, 'lucy', 'Arnold', '19-4', '2020-12-27 11:08:57', ''),
-(53, 'Harry Porte', 'Arnold', '53-1', '2020-12-27 11:08:57', ''),
-(55, 'lucy', 'Arnold', '19-5', '2020-12-27 11:08:57', ''),
-(57, 'Harry Porte', 'Arnold', '53-2', '2020-12-27 11:08:57', ''),
-(61, 'Harry Porte', 'Arnold', '53-3', '2020-12-27 11:09:45', ''),
-(65, 'Harry Porte', 'Arnold', '53-4', '2020-12-27 11:10:40', ''),
-(67, 'ssss', 'Ram charan', '66-1', '2020-12-27 00:00:00', 'Saurabh s. Wani'),
-(69, 'Emma Watson', 'Harmoine', '69-1', '2020-12-28 10:31:03', ''),
-(70, 'Harry Porte', 'Arnold', '53-5', '2020-12-28 10:31:03', ''),
-(71, 'Jonas Marth', 'Arnold', '71-1', '2020-12-28 10:31:03', '');
+INSERT INTO `magazine` (`id`, `name`, `author`, `dateadd`, `addedby`, `isbn`) VALUES
+(19, 'lucy', 'saurabh ', '2020-12-27 00:00:00', '', '81-88158-00-2'),
+(79, 'Talk in Eng', 'Abdul Salam', '2020-12-29 11:06:34', 'Saurabh s. Wani', '81-88158-00-3'),
+(81, 'Saurabh Wan', 'saurabh ', '2020-12-29 15:56:16', 'Saurabh s. Wani', '11-11111-11-1'),
+(84, 'raj', 'Ram charan', '2020-12-29 16:01:50', 'Saurabh s. Wani', '11-11111-11-2'),
+(85, 'Saurabh Wan', 'saurabh wan', '2020-12-29 16:03:36', 'Saurabh s. Wani', '11-11111-11-3'),
+(86, 'ssss', 'saurabh wan', '2020-12-29 16:04:26', 'Saurabh s. Wani', '81-88158-00-4');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `magazinecopy`
+--
+
+CREATE TABLE `magazinecopy` (
+  `sr` int(11) NOT NULL,
+  `bookid` int(11) NOT NULL,
+  `copyid` varchar(11) NOT NULL,
+  `status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `magazinecopy`
+--
+
+INSERT INTO `magazinecopy` (`sr`, `bookid`, `copyid`, `status`) VALUES
+(1, 19, '19-1', 0),
+(2, 19, '19-2', 0),
+(16, 19, '19-3', 0),
+(17, 19, '19-4', 0),
+(18, 19, '19-5', 0),
+(23, 79, '79-1', 0),
+(24, 79, '79-2', 0),
+(31, 81, '81-1', 1),
+(32, 81, '81-2', 1),
+(48, 84, '84-1', 1),
+(49, 84, '84-2', 1),
+(50, 84, '84-3', 1),
+(51, 84, '84-4', 1),
+(52, 84, '84-5', 1),
+(53, 85, '85-1', 1),
+(54, 85, '85-2', 1);
 
 -- --------------------------------------------------------
 
@@ -123,7 +151,11 @@ CREATE TABLE `removeddata` (
 INSERT INTO `removeddata` (`id`, `removedby`, `removedon`, `removeditem`, `removedcount`) VALUES
 (1, 'Saurabh s. Wani', '2020-12-27 12:52:05', 'Magazine-lucy', '2'),
 (2, 'Saurabh s. Wani', '2020-12-27 13:06:17', 'Student - P-1952013 E-Silvester@Rambo.com N-Silvester  M1100223344 Y-0000-00-00 B-Mechanical Engineering A-Near USA, Rambo nagar, Jalgaon', '1'),
-(3, 'Saurabh s. Wani', '2020-12-28 10:34:23', 'Magazine - lucy', '1');
+(3, 'Saurabh s. Wani', '2020-12-28 10:34:23', 'Magazine - lucy', '1'),
+(4, 'Saurabh s. Wani', '2020-12-29 10:27:15', 'Student - P-1841059 E-shubhamget@gmail.com N-Shubham Ramjivan Yadav  M8999585594 Y-2018-06-15 B-Computer Engineering A-Bajajnagar Aurangabad Maharashtra ', '1'),
+(5, 'Saurabh s. Wani', '2020-12-29 15:48:00', 'Magazine - lucy', '1'),
+(6, 'Saurabh s. Wani', '2020-12-29 15:49:38', 'Magazine - lucy', '0'),
+(7, 'Saurabh s. Wani', '2020-12-29 16:04:51', 'Magazine - ssss', '5');
 
 -- --------------------------------------------------------
 
@@ -673,8 +705,7 @@ INSERT INTO `student` (`stid`, `prn`, `Name`, `Email`, `mobile`, `branch`, `admi
 (495, '1841053', 'Abhishek Rupchand Thakare', 'thakareabhishek2001@gmail.com', 7038560859, 'Computer Engineering', '2018-06-15', '0', 'Male', 'At. Manapur Tah. Ramtek Dist. Nagpur -441106'),
 (496, '1841054', 'Kaustubh Umbarkar', 'kaustubhumbarkar36@gmail.com', 7218787038, 'Computer Engineering', '2018-06-15', '0', 'Male', 'Infront of Sagar Park Government Qtr P3 Building,Jalgaon'),
 (497, '1841057', 'Jayesh Bhanudas Wani', 'jayeshwani05@gmail.com', 7972963535, 'Computer Engineering', '2018-06-15', '0', 'Male', 'Swaminarayan Nagar ,Savda(425502) ,Tal: Raver , Dist: Jalgaon'),
-(498, '1841058', 'Saurabh Sunil Wani', 'er.saurabhwani1@gmail.com', 7841917752, 'Computer Engineering', '2018-06-15', '0', 'Male', 'Near shivdham temple, jalgaon'),
-(499, '1841059', 'Shubham Ramjivan Yadav ', 'shubhamget@gmail.com', 8999585594, 'Computer Engineering', '2018-06-15', '0', 'Male', 'Bajajnagar Aurangabad Maharashtra '),
+(498, '1841058', 'Saurabh Sunil Wani', 'er.saurabhwani1@gmail.com', 7841917752, 'Computer Engineering', '2018-06-15', '1', 'Male', 'Near shivdham temple, jalgaon'),
 (500, '1841060', 'Manali Dinesh Zope', 'manalizope4@gmail.com', 9588412994, 'Computer Engineering', '2018-06-15', '0', 'Female', 'Flat No. 6, Shree Plaza Appt., Tapi Nagr, Yawal Road ,Bhusawal.'),
 (501, '1842101', 'NITIN DADABHAU BORSE', 'nitinborseversion7@gmail.com', 8999705608, 'Computer Engineering', '2017-06-15', '0', 'Male', 'C/O - Cement\nCarrier,\nPlot.no. - 11, \nNear sakal newspaper,\nVasumitra Hotel,\nMIDC,\n425003'),
 (502, '1842102', 'Awes Khan Ayyub Khan ', 'khanawes22@gmail.com', 9172342937, 'Computer Engineering', '2017-06-15', '0', 'Male', 'Plot No 1, Rahat Colony, Dargah Road, Parbhani'),
@@ -725,9 +756,9 @@ INSERT INTO `student` (`stid`, `prn`, `Name`, `Email`, `mobile`, `branch`, `admi
 (547, '1851053', 'Vaishnavi Bhagwan Patil ', 'vbpatil942@gmail.com', 9370705285, 'Civil Engineering', '2018-06-15', '0', 'Female', 'Jalgaon '),
 (548, '1851054', 'Prajwal Anil Veer', 'prajwalveer4@gmail.com', 7218956594, 'Civil Engineering', '2018-06-15', '0', 'Male', 'Ambika Nagar Darwha, Dist. yavatmal'),
 (549, '1851056', 'Anjali Rama Wankhade ', 'anjaliwankhade2000@gmail.com', 9552888073, 'Civil Engineering', '2018-06-15', '0', 'Female', 'At post ugwa ,akola '),
-(550, '1851057', 'Khomesh Ganesh Yerne ', 'yernekhomesh2018@gmail.com', 9370123669, 'Civil Engineering', '2018-06-15', '0', 'Male', 'At post paraswada ta tirora dist Gondia ');
+(550, '1851057', 'Khomesh Ganesh Yerne ', 'yernekhomesh2018@gmail.com', 9370123669, 'Civil Engineering', '2018-06-15', '0', 'Male', 'At post paraswada ta tirora dist Gondia '),
+(551, '1851059', 'Saurabh Prashant Zalte', 'saurabhpz158@gmail.com', 918308000000, 'Civil Engineering', '2018-06-15', '0', 'Male', 'At. Ranantri , Po.Ambashu ,Ta.Chikhali , Dist.Buldhana');
 INSERT INTO `student` (`stid`, `prn`, `Name`, `Email`, `mobile`, `branch`, `admi_year`, `status`, `Gender`, `Address`) VALUES
-(551, '1851059', 'Saurabh Prashant Zalte', 'saurabhpz158@gmail.com', 918308000000, 'Civil Engineering', '2018-06-15', '0', 'Male', 'At. Ranantri , Po.Ambashu ,Ta.Chikhali , Dist.Buldhana'),
 (552, '1851060', 'Rupali dilip zope', 'rupalizope2020@gmail.com', 8888188747, 'Civil Engineering', '2018-06-15', '0', 'Female', 'Zope wada varangaon'),
 (553, '1852101', 'Sayyed Nouman Mushirali', 'sayyednouman53@gmail.com', 9404175366, 'Civil Engineering', '2017-06-15', '0', 'Male', 'Latur'),
 (554, '1852201', 'Snehal Prakash Birar', 'snehalbirar22@gmail.com', 9075695228, 'Civil Engineering', '2017-06-15', '0', 'Female', 'Mamledar lane Malegaon Nashik'),
@@ -1004,13 +1035,7 @@ CREATE TABLE `student_book` (
 
 INSERT INTO `student_book` (`sr_no`, `prn`, `book_name`, `took`, `returned`, `renew`, `fine`) VALUES
 (5, '1841023', 'hello world', '2020-12-06 13:13:13', '2020-12-06 13:13:21', '2020-12-06 13:13:25', 0),
-(8, '1841058', 'lamborgini', '2020-12-07 00:00:00', '2020-12-07 19:36:52', '2020-12-07 00:00:00', 0),
-(9, '1841058', 'raja laal', '2020-11-20 00:00:00', '2020-12-08 00:00:00', '0000-00-00 00:00:00', 0),
 (10, '1841023', 'prasad joshi', '2020-12-07 19:16:18', '2020-12-10 11:01:19', '2020-12-08 00:00:00', 0),
-(11, '1841058', 'bhotiya haveli', '2020-12-07 19:25:13', '0000-00-00 00:00:00', '2020-10-08 00:00:00', 0),
-(12, '1841058', 'rani mahal', '2020-12-07 19:25:29', '0000-00-00 00:00:00', '2020-08-08 00:00:00', 0),
-(13, '1841058', 'aahat', '2020-12-07 19:25:39', '0000-00-00 00:00:00', '2020-11-08 00:00:00', 0),
-(14, '1841058', 'tukaram ', '2020-12-07 19:37:10', '0000-00-00 00:00:00', '2020-10-20 00:00:00', 0),
 (15, '1841023', 'jjjjj', '2020-11-20 15:55:02', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
 (16, '1841023', 'jalgaon', '2020-12-11 11:22:19', '0000-00-00 00:00:00', '2020-12-22 11:58:27', 0),
 (17, '1841023', 'ppp', '2020-12-22 11:20:27', '0000-00-00 00:00:00', '2020-12-22 11:56:30', 0),
@@ -1031,6 +1056,13 @@ ALTER TABLE `books`
 --
 ALTER TABLE `magazine`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `magazinecopy`
+--
+ALTER TABLE `magazinecopy`
+  ADD PRIMARY KEY (`sr`),
+  ADD KEY `bookid` (`bookid`);
 
 --
 -- Indexes for table `removeddata`
@@ -1066,13 +1098,19 @@ ALTER TABLE `student_book`
 -- AUTO_INCREMENT for table `magazine`
 --
 ALTER TABLE `magazine`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+
+--
+-- AUTO_INCREMENT for table `magazinecopy`
+--
+ALTER TABLE `magazinecopy`
+  MODIFY `sr` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT for table `removeddata`
 --
 ALTER TABLE `removeddata`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `staff`
@@ -1091,6 +1129,16 @@ ALTER TABLE `student`
 --
 ALTER TABLE `student_book`
   MODIFY `sr_no` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `magazinecopy`
+--
+ALTER TABLE `magazinecopy`
+  ADD CONSTRAINT `magazinecopy_ibfk_1` FOREIGN KEY (`bookid`) REFERENCES `magazine` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

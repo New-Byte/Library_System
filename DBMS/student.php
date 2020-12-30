@@ -3,6 +3,7 @@ include('header.php');
 title("Student");
 ?>
 <div class="span12">
+  <?php message(); ?>
   <div class="widget">
     <div class="widget-header"> <i class="icon-bookmark"></i>
       <h3>Manage Student</h3>
@@ -13,7 +14,7 @@ title("Student");
         <a href="#myModal" role="button" data-toggle="modal" class="shortcut"><i class="shortcut-icon icon-plus-sign"></i><span class="shortcut-label">Add Student</span> </a>
         <a href="#myModal3" role="button" data-toggle="modal" class="shortcut"><i class="shortcut-icon icon-upload-alt"></i><span class="shortcut-label">Upload Student Data</span> </a>
         <a href="#myModal2" role="button" data-toggle="modal" class="shortcut"><i class="shortcut-icon icon-remove-sign"></i> <span class="shortcut-label">Remove Student</span> </a>
-        <a href="gt.php" class="shortcut"> <i class="shortcut-icon icon-search"></i><span class="shortcut-label">Search Students</span> </a>
+        <a href="gt.php?page=IMPORT-EXPORT" class="shortcut"> <i class="shortcut-icon icon-search"></i><span class="shortcut-label">Search Students</span> </a>
         <a href="#myModal1" role="button" data-toggle="modal" class="shortcut"><i class="shortcut-icon icon-filter"></i><span class="shortcut-label">Filter Students</span> </a>
       </div>
       <!-- /shortcuts --> 
@@ -96,7 +97,7 @@ title("Student");
               <br><br>
               <input class="btn" type="submit" name="op" value="Remove">
               <br><br>
-              <input class="btn" type="submit" name="op" value="Remove all pass-outs">
+              <!-- <input class="btn" type="submit" name="op" value="Remove all pass-outs"> -->
             </div>
           </div>  <!-- /controls -->      
         </div>
@@ -112,83 +113,81 @@ title("Student");
     </div>
     <div class="modal-body">
       <div class="row" align="center">
-      <!-- Import link -->
-    <div class="col-md-12 head">
-        <div class="float-right">
+        <!-- Import link -->
+        <div class="col-md-12 head">
+          <div class="float-right">
             <a href="javascript:void(0);" class="btn btn-success" onclick="formToggle('importFrm');"><i class="plus"></i> Import</a>
+          </div>
         </div>
-    </div>
-      <!-- CSV file upload form -->
-    <div class="col-md-12" id="importFrm" style="display: none;">
-        <form action="importdata.php" method="post" enctype="multipart/form-data">
+        <!-- CSV file upload form -->
+        <div class="col-md-12" id="importFrm" style="display: none;">
+          <form action="importdata.php" method="post" enctype="multipart/form-data">
             <input type="file" name="file" />
-            <input type="submit" class="btn btn-primary" name="importSubmit" value="IMPORT">
-        </form>
-    </div>
-  </div>
-  <!-- Show/hide CSV upload form -->
-<script>
-function formToggle(ID){
-    var element = document.getElementById(ID);
-    if(element.style.display === "none"){
-        element.style.display = "block";
-    }else{
-        element.style.display = "none";
-    }
-}
-</script>
-            </div>
-          </div>  <!-- /controls -->      
+            <input type="submit" class="btn btn-primary" name="importSubmit" value="Upload">
+          </form>
         </div>
+      </div>
+      <!-- Show/hide CSV upload form -->
+      <script>
+        function formToggle(ID){
+          var element = document.getElementById(ID);
+          if(element.style.display === "none"){
+            element.style.display = "block";
+          }else{
+            element.style.display = "none";
+          }
+        }
+      </script>
+    </div>
+  </div>  <!-- /controls -->      
+
+
+<div id="myModal1" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Filter Student</h3>
+  </div>
+  <div class="modal-body">
+    <form  name="search" action="filter.php?page=Dashboard&cnt=800" method="POST" class="form-horizontal" >
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>Check</th>
+              <th>Branch</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" value="Computer Engineering" name="branch10[]"></td>
+              <td>Computer Engineering</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" value="Mechanical Engineering" name="branch10[]"></td>
+              <td>Mechanical Engineering</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" value="Electrical Engineering" name="branch10[]"></td>
+              <td>Electrical Engineering</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" value="Civil Engineering" name="branch10[]"></td>
+              <td>Civil Engineering</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" value="Electronics & Telecommunication" name="branch10[]"></td>
+              <td>Electronics & Telecommunication Engineering</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" value="Instrumentation Engineering" name="branch10[]"></td>
+              <td>Instrumentation Engineering</td>
+            </tr>
+          </tbody>
+        </table><input class="btn" type="submit" name="remove" value="Apply">
       </form>
     </div>
   </div>
-
-  <div id="myModal1" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-      <h3 id="myModalLabel">Filter Student</h3>
-    </div>
-    <div class="modal-body">
-      <form  action="filter.php" method="POST" class="form-horizontal" >
-        <div class="control-group">
-        <table width="600" border="2" class="srch">     
-          <div class="controls">
-            <div class="input-append">
-              <tr>
-            <table width="500" border="1" class="srch">           
-              <thead>
-                <tr>
-                  <th><center>Filter By Branch</center></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <input type="checkbox" value="Computer Engineering" name="branch10[]">Computer Engineering<br />
-                    <input type="checkbox" value="Mechanical Engineering" name="branch10[]">Mechanical Engineering<br />
-                    <input type="checkbox" value="Electrical Engineering" name="branch10[]">Electrical Engineering<br />
-                    <input type="checkbox" value="Civil Engineering" name="branch10[]">Civil Engineering<br />
-                    <input type="checkbox" value="Electronics & Telecommunication" name="branch10[]">Electronics & Telecommunicatio<br />
-                    <input type="checkbox" value="Instrumentation Engineering" name="branch10[]">Instrumentation Engineering<br />
-                  </td>
-                </tr>
-              </tbody>
-              <br><br>
-            </table>
-          </tr>
-            </div>
-          </div>  <!-- /controls -->  
-          <tr><td colspan="3" align="center">
-              <input class="btn" type="submit" name="remove" value="Apply"></td></tr>
-          </table>    
-        </div>
-      </form>
-    </div>
-  </div>
-
   <div class="widget">
-    <div class="widget-header"> <i class='icon-list'></i> 
+    <div class="widget-header"><i class='icon-list'></i> 
       <h3><?php
       $result=select("*","student","WHERE 1");
       $row=mysqli_num_rows($result);
@@ -225,7 +224,7 @@ function formToggle(ID){
           if(isset($_GET['cnt']))
             $cnt = $_GET['cnt'];
 
-          $result=select("*","student","WHERE stid <= $cnt ORDER BY prn");
+          $result=select("*","student","ORDER BY prn LIMIT $cnt");
           while($std=mysqli_fetch_assoc($result))
           {
             echo "<tr>

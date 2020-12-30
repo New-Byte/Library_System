@@ -23,6 +23,7 @@ title("Books");
       <table class="table table-striped">
         <thead>
           <tr>
+          	<th><center>Referance ID</center></th>
             <th><center>Book ID</center></th>
             <th><center>Book Name</center></th>
             <th><center>Auther</center></th>
@@ -36,6 +37,7 @@ title("Books");
           while($std=mysqli_fetch_assoc($result))
           {
             echo "<tr>
+            <td><center> ".$std['bk_id']."</center></td>
             <td><center> ".$std['book_id']."</center></td>
             <td><center> ".$std['book_name']."</center></td>  
             <td><center> ".$std['auther']."</center></td>";
@@ -80,6 +82,7 @@ title("Books");
       <table class="table table-striped">
         <thead>
           <tr>
+          	<th><center>Referance ID</center></th>
             <th><center>Book ID</center></th>
             <th><center>Book Name</center></th>
             <th><center>Auther</center></th>
@@ -93,6 +96,7 @@ title("Books");
           while($std=mysqli_fetch_assoc($result))
           {
             echo "<tr>
+            <td><center> ".$std['bk_id']."</center></td>
             <td><center> ".$std['book_id']."</center></td>
             <td><center> ".$std['book_name']."</center></td>  
             <td><center> ".$std['auther']."</center></td>";  
@@ -136,6 +140,7 @@ title("Books");
       <table class="table table-striped">
         <thead>
           <tr>
+          	<th><center>Referance ID</center></th>
             <th><center>Book ID</center></th>
             <th><center>Book Name</center></th>
             <th><center>Auther</center></th>
@@ -149,6 +154,7 @@ title("Books");
           while($std=mysqli_fetch_assoc($result))
           {
             echo "<tr>
+            <td><center> ".$std['bk_id']."</center></td>
             <td><center> ".$std['book_id']."</center></td>
             <td><center> ".$std['book_name']."</center></td>  
             <td><center> ".$std['auther']."</center></td>";  

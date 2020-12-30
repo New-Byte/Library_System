@@ -68,33 +68,7 @@ title("Books");
 							<input type='hidden' name='book' value='".$stb['book_name']."'>
 							
 							";?>
-
-							<?php 
-							if($stb['returned']=='0000-00-00 00:00:00'&&$stb['renew']!='0000-00-00 00:00:00')
-								{
-									echo 15-diff_date($stb['renew'],date("Y-m-d H:i:s"),"D");
-								}
-								elseif($stb['returned']!='0000-00-00 00:00:00')
-								{}
-							elseif($stb['returned']=='0000-00-00 00:00:00'&&$stb['renew']=='0000-00-00 00:00:00'){
-								echo 15-diff_date($stb['took'],date("Y-m-d H:i:s"),"D");
-							}else{}
-							echo"</cen
-							ter></td>";
-
-							if ((abs(diff_date($stb['took'],date("Y-m-d H:i:s"),"D"))>15) && $stb['renew']=='0000-00-00 00:00:00'&&$stb['returned']=='0000-00-00 00:00:00')
-							{
-								echo"<td style='color:white;background-color:#FF5722;'> <center>".abs(((15-diff_date($stb['took'],date("Y-m-d H:i:s"),"D"))*5))."</center></td>";
-							}
-							elseif ((abs(diff_date($stb['renew'],date("Y-m-d H:i:s"),"D"))>15) && $stb['renew']!='0000-00-00 00:00:00'&&$stb['returned']=='0000-00-00 00:00:00')
-							{
-								echo"<td style='color:white;background-color:#FF5722;'> <center>".abs(((15-diff_date($stb['took'],date("Y-m-d H:i:s"),"D"))*5))."</center></td>";
-							}
-							else
-							{
-								echo"<td> <center></center></td>";
-							}
-							if($row!=0 && $status=="1"){ 
+							<?php if($row!=0 && $status=="1"){ 
 							echo"<button type='submit' title='Return' name='return' class='btn btn-small btn-success'><i class='btn-icon-only icon-ok'> </i></button>
 							<button type='submit' title='Renew' name='renew' class='btn btn-primary btn-small'><i class='btn-icon-only icon-large icon-repeat'></i></button>"; 
 							echo "</form>

@@ -11,7 +11,7 @@ title("Books");
     <div class="widget-content">
       <div class="shortcuts"> 
         <a href="#myModal" role="button" data-toggle="modal" class="shortcut"><i class="shortcut-icon icon-plus-sign"></i><span class="shortcut-label">Add Book</span> </a>
-        <a href="javascript:;" class="shortcut"><i class="shortcut-icon icon-upload-alt"></i> <span class="shortcut-label">Import Books Data</span> </a>
+        <a href="#myModal3" role="button" data-toggle="modal" class="shortcut"><i class="shortcut-icon icon-upload-alt"></i><span class="shortcut-label">Upload Book Data</span> </a>
         <a href="#myModal2" role="button" data-toggle="modal" class="shortcut"><i class="shortcut-icon icon-remove-sign"></i> <span class="shortcut-label">Remove Book</span> </a>
         <a href="#myModal0" role="button" data-toggle="modal" class="shortcut"><i class="shortcut-icon icon-search"></i> <span class="shortcut-label">Search Book</span> </a>
       </div>
@@ -79,6 +79,59 @@ title("Books");
       </form>
     </div>
   </div>
+
+<!-- Upload data to db -->
+<div id="myModal3" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="myModalLabel">Upload Book Data</h3>
+    </div>
+    <div class="modal-body">
+      <div class="row" align="center">
+        <!-- Import link -->
+        <div class="col-md-12 head">
+          <div class="float-right">
+            <a href="javascript:void(0);" class="btn btn-success" onclick="formToggle('importFrm');"><i class="plus"></i> Upload  Book Record</a>
+          </div>
+        </div>
+        <!-- CSV file upload form -->
+        <div class="col-md-12" id="importFrm" style="display: none;">
+          <form action="importdata.php" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" />
+            <input type="submit" class="btn btn-primary" name="importbk" value="Upload Book Data">
+          </form>
+        </div>
+      </div><br>
+
+      <div class="row" align="center">
+      <!-- Import link -->
+    <div class="col-md-12 head">
+        <div class="float-right">
+            <a href="javascript:void(0);" class="btn btn-success" onclick="formToggle('importFrm1');"><i class="plus"></i> Upload record of copies</a>
+        </div>
+      </div><br>
+        <div class="col-md-12" id="importFrm1" style="display: none;">
+        <form action="importdata.php" method="post">
+            <input type="file" name="file" />
+            <input type="submit" class="btn btn-primary" name="importcp" value="Upload Copy Data">
+        </form>
+    </div>
+    </div>
+      <!-- Show/hide CSV upload form -->
+      <script>
+        function formToggle(ID){
+          var element = document.getElementById(ID);
+          if(element.style.display === "none"){
+            element.style.display = "block";
+          }else{
+            element.style.display = "none";
+          }
+        }
+      </script>
+    </div>
+  </div>  <!-- /controls -->      
+
+
 <!-- search Books -->
 <div id="myModal0" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header">
@@ -161,7 +214,7 @@ function formToggle(ID){
       <table class="table table-striped">
         <thead>
           <tr>
-            <th><center>Book ID</center></th>
+            <th><center>Referance ID</center></th>
             <th><center>Book Name</center></th>
             <th><center>Auther</center></th>
             <th><center>Total Copies</center></th>

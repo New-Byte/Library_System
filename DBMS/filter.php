@@ -20,7 +20,8 @@
     }
     if($result){
 ?>
-        <div class="widget">
+<div class="span12">
+  <div class="widget">
     <div class="widget-header"> <i class='icon-list'></i> 
       <h3>
           Student List 

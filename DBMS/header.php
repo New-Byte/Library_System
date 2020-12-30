@@ -1,4 +1,4 @@
-<?php include('security.php');include('fun.php');
+<?php include_once('security.php');include_once('fun.php');
 securityforpage();?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,8 +8,6 @@ securityforpage();?>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
-  <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600"
-  rel="stylesheet">
   <link href="css/font-awesome.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
   <link href="css/pages/dashboard.css" rel="stylesheet">
@@ -51,8 +49,9 @@ securityforpage();?>
         <li class=" <?php if($_GET['page']=='Dashboard'){ echo 'active';} ?>"><a href="index.php?page=Dashboard"><i class="icon-dashboard"></i><span>Dashboard</span> </a> </li>
         <li class="<?php if($_GET['page']=='IMPORT-EXPORT'){ echo 'active';} ?>"><a href="gt.php?page=IMPORT-EXPORT"><i class="icon-list-alt"></i><span>Students</span> </a> </li>
         <li class="<?php if($_GET['page']=='Books'){ echo 'active';} ?>"><a href="gt1.php?page=Books"><i class="icon-book"></i><span>Books</span> </a> </li>
-        <li class="<?php if($_GET['page']=='Statistics'){ echo 'active';} ?>"><a href="gt2.php?page=Statistics"><i class="icon-bar-chart"></i><span>Statistics</span> </a> </li>
-        <?php ?>
+        <?php if ($_SESSION['category']==0): ?>
+        <li class="<?php if($_GET['page']=='Statistics'){ echo 'active';} ?>"><a href="gt2.php?page=Statistics"><i class="icon-bar-chart"></i><span>Statistics</span> </a> </li> 
+        <?php endif;?>
       </ul>
     </div>
     <!-- /container --> 
