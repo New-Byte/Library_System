@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.3
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3345
--- Generation Time: Dec 30, 2020 at 05:52 AM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.2.34
+-- Host: 127.0.0.1
+-- Generation Time: Dec 29, 2020 at 11:54 AM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -41,8 +42,8 @@ CREATE TABLE `books` (
 
 INSERT INTO `books` (`bk_id`, `book_name`, `auther`, `toatal_cp`, `cp_left`) VALUES
 (1122, 'hello world', 'fransis parker', 5, 4),
-(1455, 'Harry Potter and the chamber of Secrets', 'J.K.Rawling', 3, 3),
-(1588, 'Quantum mechanics', 'Phillip newgate', 2, 2);
+(1455, 'Harry Potter and the chamber of Secrets', 'J.K.Rawling', 6, 6),
+(1588, 'Quantum mechanics', 'Phillip newgate', 8, 8);
 
 -- --------------------------------------------------------
 
@@ -51,7 +52,6 @@ INSERT INTO `books` (`bk_id`, `book_name`, `auther`, `toatal_cp`, `cp_left`) VAL
 --
 
 CREATE TABLE `cp_books` (
-  `bk_id` int(10) NOT NULL,
   `book_id` int(10) NOT NULL,
   `book_name` varchar(50) NOT NULL,
   `auther` varchar(30) NOT NULL,
@@ -62,17 +62,11 @@ CREATE TABLE `cp_books` (
 -- Dumping data for table `cp_books`
 --
 
-INSERT INTO `cp_books` (`bk_id`, `book_id`, `book_name`, `auther`, `status`) VALUES
-(1122, 112212, 'hello world', 'fransis parker', 1),
-(1122, 112230, 'hello world', 'fransis parker', 1),
-(1122, 112232, 'hello world', 'fransis parker', 1),
-(1122, 112233, 'hello world', 'fransis parker', 0),
-(1122, 112255, 'hello world', 'fransis parker', 1),
-(1455, 145501, 'Harry Potter and the chamber of secrets', 'J.k.Rawling', 1),
-(1455, 145502, 'Harry Potter and the chamber of secrets', 'J.k.Rawling', 1),
-(1455, 145503, 'Harry Potter and the chamber of secrets', 'J.k.Rawling', 1),
-(1588, 158841, 'Quantum Mechanics', 'phillip newgate', 1),
-(1588, 158842, 'Quantum Mechanics', 'phillip newgate', 1);
+INSERT INTO `cp_books` (`book_id`, `book_name`, `auther`, `status`) VALUES
+(112232, 'hello world', 'fransis parker', 1),
+(112230, 'hello world', 'fransis parker', 1),
+(112212, 'hello world', 'fransis parker', 1),
+(112255, 'hello world', 'fransis parker', 1);
 
 -- --------------------------------------------------------
 
@@ -172,10 +166,9 @@ INSERT INTO `removeddata` (`id`, `removedby`, `removedon`, `removeditem`, `remov
 CREATE TABLE `staff` (
   `sid` int(11) UNSIGNED NOT NULL,
   `Name` varchar(30) NOT NULL,
-  `mobile` varchar(10) NOT NULL,
   `Email` varchar(50) NOT NULL,
   `password` varchar(256) NOT NULL,
-  `branch` varchar(40) NOT NULL,
+  `branch` varchar(20) NOT NULL,
   `image` varchar(256) NOT NULL,
   `Date` date NOT NULL,
   `last_login` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
@@ -187,11 +180,9 @@ CREATE TABLE `staff` (
 -- Dumping data for table `staff`
 --
 
-INSERT INTO `staff` (`sid`, `Name`, `mobile`, `Email`, `password`, `branch`, `image`, `Date`, `last_login`, `Login_ip`, `Category`) VALUES
-(1, 'Saurabh s. Wani', '1452587891', 'er.saurabhwani1@gmail.com', 'asdf', 'Computer Engineering', 'student.png', '2020-12-05', '2020-12-30 03:57:09', '::1', 0),
-(2, 'Prasad Joshi', '1452587842', 'prasadjoshi9969@gmail.com', '1234', 'Computer Engineering', 'prasad2.jpeg', '2020-12-01', '2020-12-30 03:59:10', '::1', 0),
-(3, 'Tony Stark', '4581236975', 'Tonystark@ironman.com', '1234', 'Electrical Engineering', '', '2020-12-01', '2020-12-30 03:59:22', '::1', 1),
-(5, 'Bruece Banner', '9654123658', 'BrueceBanner@Hulk.com', '1234', 'Instrumentation Engineering', '', '2020-12-03', '2020-12-30 03:59:36', '', 1);
+INSERT INTO `staff` (`sid`, `Name`, `Email`, `password`, `branch`, `image`, `Date`, `last_login`, `Login_ip`, `Category`) VALUES
+(1, 'Saurabh s. Wani', 'er.saurabhwani1@gmail.com', 'asdf', 'Computer', 'student.png', '2020-12-05', '2020-12-28 05:00:13', '::1', 0),
+(2, 'Prasad Joshi', 'prasadjoshi9969@gmail.com', '1234', 'Computer', '', '2020-12-01', '2020-12-28 06:32:03', '::1', 1);
 
 -- --------------------------------------------------------
 
@@ -1061,12 +1052,6 @@ ALTER TABLE `books`
   ADD PRIMARY KEY (`bk_id`);
 
 --
--- Indexes for table `cp_books`
---
-ALTER TABLE `cp_books`
-  ADD PRIMARY KEY (`book_id`);
-
---
 -- Indexes for table `magazine`
 --
 ALTER TABLE `magazine`
@@ -1131,7 +1116,7 @@ ALTER TABLE `removeddata`
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `sid` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `sid` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `student`

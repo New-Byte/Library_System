@@ -149,6 +149,7 @@ title("Student");
   </div>
   <div class="modal-body">
     <form  name="search" action="filter.php?page=Dashboard&cnt=800" method="POST" class="form-horizontal" >
+      <input type="hidden" value="std" name="cat">
         <table class="table table-striped table-bordered">
           <thead>
             <tr>

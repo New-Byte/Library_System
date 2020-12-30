@@ -306,19 +306,15 @@ if(isset($_POST['prn'])){
 				case 'rmBK':
 				$bid = $_POST['id1'];
 				//get the name and status of book with given id
-				$add="SELECT * FROM cp_book WHERE book_id='$bid'";
+				$add="SELECT * FROM books NATURAL JOIN cp_books WHERE book_id='$bid'";
 				$result = $connection->query($add);
 				$std=mysqli_fetch_assoc($result);
-				$std1 = $std['bk_id'];
+				$i = $std['bk_id'];
 				$stat = $std['status'];
-				//delete the book
-				$add="DELETE FROM cp_books WHERE book_id='$bid'";    
-				if ($connection->query($add)) 
-				{	
-					//Update total books and books left in books table
-					$add = "SELECT * FROM books WHERE bk_id='$std1'";
-					$result = $connection->query($add);
-					$std=mysqli_fetch_assoc($result);
+				//Update total books and books left in books table
+				$add = "SELECT * FROM books WHERE bk_id='$i'";
+				$result = $connection->query($add);
+				$std2=mysqli_fetch_assoc($result);
 					//check if book was available i library
 					if (!$stat) {
 						$l = $std['cp_left'];
@@ -326,50 +322,15 @@ if(isset($_POST['prn'])){
 					else{$l = $std['cp_left'] - 1;}
 					$t = $std['toatal_cp'] - 1;
 					$add="UPDATE books SET cp_left='$l',toatal_cp='$t' WHERE bk_id='$std1'";			
-					if ($connection->query($add)){			
-						poutput("Book removed successfully","books.php?page=Books&prn=$prn&submit=");}
+					if ($connection->query($add)){	
+					$add="DELETE FROM cp_books WHERE book_id='$bid'";    
+				      if ($connection->query($add)) 		
+						poutput("Book removed successfully","books.php?page=Books&prn=$prn&submit=");
 						else{
 							poutput("Book removed successfully but unable to update data","books.php?page=Books&prn=$prn&submit=");
 						}
-						
-					}
-					else
-					{
-						noutput("Unsuccessful To Remove Data","books.php?page=Books&prn=$prn&submit=");
 					}
 					break;
-					case 'AddSTF':
-				$name = $_POST['name'];
-				$email = $_POST['email'];
-				$mobile = $_POST['mobile'];
-				$pass = $_POST['pass'];
-				$branch = $_POST['branch'];
-				$date = $_POST['date'];
-				$add1="INSERT INTO staff(Name,Email,mobile,password,branch,Date) VALUES ('$name','$email','$mobile','$pass','$branch','$date')";    
-				if ($connection->query($add1)) 
-				{
-					poutput("Staff Data Added Successfully","staff.php?page=Dashboard&prn=$prn&submit=");
-				}
-				else
-				{
-					noutput("Unsuccessful To Add Staff","staff.php?page=Dashboard&prn=$prn&submit=");
-				}
-				break;
-				//To remove staff start
-				case 'Remove Staff':
-				$stid = $_POST['stid'];
-				$stnm = $_POST['stnm'];
-				$add="DELETE FROM staff WHERE Email='$stid' AND Name='$stnm'";    
-				if ($connection->query($add)) 
-				{
-											
-					poutput("Staff removed successfully","staff.php?page=Dashboard&prn=$prn&submit=");
-				}
-				else
-				{
-					noutput("Unsuccessful To Remove Data","staff.php?page=Dashboard&prn=$prn&submit=");
-				}
-				break;
 					default:
 					$_POST['op']="";
 					header('Location:index.php?page=Dashboard&prn=&submit=');
