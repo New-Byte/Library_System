@@ -4,11 +4,27 @@ I run my SQL server on different port number. If anyone is running this project,
 ## Abstract
 Library Management System is a system which maintains the informationabout the books present in the library, their authors, the members of library to whom books are issued, library staff and all. This is very difficult to organizemanually. Maintenance of all this information manually is a very complex task.Owing to the advancement of technology, organization of an Online Library becomes much simple. The Online Library Management has been designed tocomputerize and automate the operations performed over the information about themembers, book issues and returns and all other operations. This computerization oflibrary helps in many instances of its maintenances. It reduces the workload of management as most of the manual work done is reduced.
 ## Introduction
-### Technologies Used
+### ENVIRONMENT USED
 1. PHP
 2. MySQL
-3. BootStrap
+3. BootStrap 
 4. JavaScript (Only few lines)
+5. HTML
+6. CSS
+### Development Tools
+● Server: XAAMP(apache)
+○ apache encourages clean, practical way of designing highly customizable
+applications.
+○ It is a very reliable, efficient, architecturally sound and secure when building web
+apps.
+● Sublime
+○ It provides smart code completion, code inspections, on-the-fly error
+highlighting and quick-fixes with automated code refactorings and rich navigation
+capabilities.
+● Github
+○ Helps developers to collaborate over the code easily and for version controlling the
+source code.
+
 ### Project Aims and Objectives
 The project aims and objectives that will be achieved after completion of this project are
 discussed in this subchapter. 
@@ -278,6 +294,10 @@ ALTER TABLE `magazinecopy`
 ALTER TABLE `student_book`
   ADD CONSTRAINT `student_book_ibfk_1` FOREIGN KEY (`prn`) REFERENCES `student` (`prn`);
 COMMIT;
+## CONCLUSION
+This website provides a computerized version of library management system which will
+benefit the students as well as the staff of the library.It makes entire process online where student can search books, staff can generate reports anddo book transactions. It also has a facility for student login where student can login and can seestatus of books issued as well request for book or give some suggestions. It has a facility ofteacher’s login where teachers can add lectures notes and also give necessary suggestion tolibrary and also add info about workshops or events happening in our college or nearby collegein the online notice board.
+
 
 
 
