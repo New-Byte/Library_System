@@ -30,26 +30,27 @@ title("Magazine");
         <div class="control-group">                     
           <label class="control-label" for="name">Magazine Name</label>
           <div class="controls">
-            <input type="text" class="span3" id="name" value="" name="name">
+            <input type="text" class="span3" id="name" required value="" name="name">
           </div> <!-- /controls -->       
         </div>
         <div class="control-group">                     
           <label class="control-label" for="author">Author</label>
           <div class="controls">
-            <input type="text" class="span3" id="author" value="" name="author">
+            <input type="text" class="span3" id="author" value="" required name="author">
           </div> <!-- /controls -->       
         </div>
         <div class="control-group">                     
           <label class="control-label" for="isbn">ISBN</label>
           <div class="controls">
-            <input type="text" class="span3" id="isbn" value="" name="isbn">
+            <input type="text" class="span3" id="isbn" value="" required name="isbn">
           </div> <!-- /controls -->       
         </div>
         <div class="control-group">                     
           <label class="control-label" for="ccount">Copies</label>
           <div class="controls">
-            <input type="number" class="span3" id="ccount" value="" name="ccount">
+            <input type="number" class="span3" id="ccount" value="" required name="ccount">
           </div> <!-- /controls -->       
+          <input type="hidden" name="cat" value="mg">
           <Button class="btn" type="submit" name="op" value="AddMZ">ADD</Button>    
         </div>
       </form>
@@ -75,6 +76,7 @@ title("Magazine");
             <div class="input-append">           
               <input class="span2 m-wrap" id="appendedInputButton" type="text" name="isbn" autocomplete="off" required="">
               <br><br>
+              <input type="hidden" name="cat" value="mg">
               <input class="btn" type="submit" name="op" value="Remove_Magazine">
             </div>
           </div>  <!-- /controls -->      
@@ -99,6 +101,7 @@ title("Magazine");
         <div class="col-md-12" id="importFrm" style="display: none;">
           <form action="importdata.php" method="post" enctype="multipart/form-data">
             <input type="file" name="file" />
+              <input type="hidden" name="cat" value="mg">
             <input type="submit" class="btn btn-primary" name="importSubmitMZ" value="IMPORT">
           </form>
         </div>
@@ -116,7 +119,7 @@ title("Magazine");
       </script>
     </div>
   </div>  <!-- /controls -->      
-  <div class="widget">
+  <div class="widget widget-table action-table">
     <div class="widget-header"><i class='icon-list'></i> 
       <h3>
         <?php
@@ -135,64 +138,60 @@ title("Magazine");
       </h3>
     </div>
     <!-- /widget-header -->
-    <div class="widget-content">
-      <div class="container">
-        <h2>Magazine Data</h2> 
-
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th><center>ID</center></th>
-              <th><center>Magazine Name</center></th>
-              <th><center>Author Name</center></th>
-              <th><center>ISBN</center></th>
-              <th><center>Date Of Add</center></th>
-              <th><center>Available copies /<br> total copies</center></th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php     
-            function res(){$cnt=25;
-              $result=select("*","magazine","ORDER BY id  LIMIT $cnt ");}       
-              if(isset($_GET['cnt']) && isset($_GET['mgn']))
+    <div class="widget-content table-bordered">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th><center>ID</center></th>
+            <th><center>Magazine Name</center></th>
+            <th><center>Author Name</center></th>
+            <th><center>ISBN</center></th>
+            <th><center>Date Of Add</center></th>
+            <th><center>Available copies /<br> total copies</center></th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php  
+          $cnt=25;
+            $result=select("*","magazine","ORDER BY id  LIMIT $cnt ");       
+            if(isset($_GET['cnt']) && isset($_GET['mgn']))
+            {
+              $mgn = trim($_GET['mgn']);
+              $cnt = $_GET['cnt'];
+              if($mgn == null)
               {
-                $mgn = trim($_GET['mgn']);
-                $cnt = $_GET['cnt'];
-                if($mgn == null)
+                $result=select("*","magazine","ORDER BY id  LIMIT $cnt ");
+              }else
+              {$result=select("*","magazine","WHERE name LIKE '%$mgn%' ORDER BY id ASC LIMIT $cnt ");}
+            }
+            else
+            {
+              $result=select("*","magazine","ORDER BY id  LIMIT $cnt ");
+            }
+            while($std=mysqli_fetch_assoc($result))
+            {
+              $copyid=$av=0;
+              $i=$std['id'];
+              echo "<tr>
+              <td><center> ".$i."</center></td>
+              <td><center> ".$std['name']."</center></td> 
+              <td><center> ".$std['author']."</center></td>  
+              <td><center> ".$std['isbn']."</center></td>  
+              <td><center> ".$std['dateadd']."</center></td> ";
+              $resultt=select("*","magazinecopy","WHERE bookid = '$i'");
+              while($stdd=mysqli_fetch_assoc($resultt))
+              { 
+                if ($stdd['status']==1) 
                 {
-                  res();
-                }else
-                {$result=select("*","magazine","WHERE name LIKE '%$mgn%' ORDER BY id ASC LIMIT $cnt ");}
-              }
-              else
-              {
-                res();
-              }
-              while($std=mysqli_fetch_assoc($result))
-              {
-                $copyid=$av=0;
-                $i=$std['id'];
-                echo "<tr>
-                <td><center> ".$i."</center></td>
-                <td><center> ".$std['name']."</center></td> 
-                <td><center> ".$std['author']."</center></td>  
-                <td><center> ".$std['isbn']."</center></td>  
-                <td><center> ".$std['dateadd']."</center></td> ";
-                $resultt=select("*","magazinecopy","WHERE bookid = '$i'");
-                while($stdd=mysqli_fetch_assoc($resultt))
-                { 
-                  if ($stdd['status']==1) 
-                  {
                   $av=$av+1;
-                  }
-                  $copyid=$copyid+1;
-                }    
-                echo "<td><center> ".$av."/".$copyid."</center></td></tr>";
-              }
-              ?>
-            </tbody>
-          </table>
-        </div>
+                }
+                $copyid=$copyid+1;
+              }    
+              echo "<td><center> ".$av."/".$copyid."</center></td></tr>";
+            }
+            ?>
+          </tbody>
+        </table>
       </div>
       <!-- /widget-content --> 
     </div>
