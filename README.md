@@ -2,7 +2,7 @@
 ## Note
 I run my SQL server on different port number. If anyone is running this project, do not forget to change the port number in dbconfig.php file.
 ## Abstract
-Library Management System is a system which maintains the informationabout the books present in the library, their authors, the members of library to whom books are issued, library staff and all. This is very difficult to organizemanually. Maintenance of all this information manually is a very complex task.Owing to the advancement of technology, organization of an Online Library becomes much simple. The Online Library Management has been designed tocomputerize and automate the operations performed over the information about themembers, book issues and returns and all other operations. This computerization oflibrary helps in many instances of its maintenances. It reduces the workload of management as most of the manual work done is reduced.
+Library Management System is a system which maintains the information about the books present in the library, their authors, the members of library to whom books are issued, library staff and all. This is very difficult to organizemanually. Maintenance of all this information manually is a very complex task.Owing to the advancement of technology, organization of an Online Library becomes much simple. The Online Library Management has been designed tocomputerize and automate the operations performed over the information about themembers, book issues and returns and all other operations. This computerization oflibrary helps in many instances of its maintenances. It reduces the workload of management as most of the manual work done is reduced.
 ## Introduction
 ### ENVIRONMENT USED
 1. PHP
